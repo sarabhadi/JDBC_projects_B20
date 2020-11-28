@@ -14,9 +14,9 @@ public class DB_Utility {
 
     public static void createConnection(){
 
-        String connectionStr = "jdbc:oracle:thin:@54.157.171.44:1521:XE";
-        String username = "hr" ;
-        String password = "hr" ;
+        String connectionStr = ConfigurationReader.getProperty("database.url");
+        String username = ConfigurationReader.getProperty("database.username");
+        String password = ConfigurationReader.getProperty("database.password");
 
         try {
             conn = DriverManager.getConnection(connectionStr,username,password) ;
@@ -308,6 +308,17 @@ public class DB_Utility {
 
 
 }
+    public static List<Map<String,String> > getAllDataAsListOfMap(){
+
+        List<Map<String,String> > rowMapList = new ArrayList<>();
+
+        for (int rowNum = 1; rowNum <= getRowCount() ; rowNum++) {
+
+            rowMapList.add(   getRowMap(rowNum)    ) ;
+
+        }
+        return  rowMapList ;
+    }
 }
 
 
